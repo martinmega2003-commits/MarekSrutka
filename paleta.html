@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barevná paleta</title>
+<style>
+  :root {
+    --podklad:    #eeefea;  /* pozadí loga – základ celého webu */
+    --podklad-2:  #e2e4dc;  /* odsazené pruhy sekcí */
+    --uhel:       #272924;  /* kukla – tmavé panely, patička, text */
+    --text:       #272924;
+    --text-slaby: #5c6157;  /* popisky, vedlejší info */
+    --linka:      #cdd0c4;  /* hairline linky, rámečky */
+    --zelena:     #2e6a10;  /* sklo kukly – akcent, tlačítka, odkazy */
+    --zelena-tm:  #234f0c;  /* hover na tlačítku */
+    --salvej:     #7c9f67;  /* světlá zelená z loga – jen plochy */
+    --salvej-sv:  #8fb57a;  /* text na tmavém pozadí */
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--podklad);
+    color: var(--text);
+    padding: 40px 24px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 32px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+  }
+
+  .swatch {
+    border: 1px solid var(--linka);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--podklad-2);
+  }
+
+  .swatch-color {
+    height: 90px;
+  }
+
+  .swatch-info {
+    padding: 12px 14px;
+  }
+
+  .swatch-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .swatch-var {
+    color: var(--text-slaby);
+    font-size: 0.8rem;
+    font-family: monospace;
+  }
+
+  .swatch-hex {
+    color: var(--text-slaby);
+    font-size: 0.8rem;
+    font-family: monospace;
+  }
+</style>
+</head>
+<body>
+
+  <h1>Barevná paleta – Marek Srutka</h1>
+
+  <div class="grid">
+
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--podklad);"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Podklad</div>
+        <div class="swatch-var">--podklad</div>
+        <div class="swatch-hex">#eeefea</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--podklad-2);"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Podklad 2</div>
+        <div class="swatch-var">--podklad-2</div>
+        <div class="swatch-hex">#e2e4dc</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--uhel);"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Uhel</div>
+        <div class="swatch-var">--uhel / --text</div>
+        <div class="swatch-hex">#272924</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--text-slaby);"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Text slabý</div>
+        <div class="swatch-var">--text-slaby</div>
+        <div class="swatch-hex">#5c6157</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--linka);"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Linka</div>
+        <div class="swatch-var">--linka</div>
+        <div class="swatch-hex">#cdd0c4</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--zelena);"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Zelená</div>
+        <div class="swatch-var">--zelena</div>
+        <div class="swatch-hex">#2e6a10</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--zelena-tm);"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Zelená tmavá (hover)</div>
+        <div class="swatch-var">--zelena-tm</div>
+        <div class="swatch-hex">#234f0c</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--salvej);"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Šalvěj</div>
+        <div class="swatch-var">--salvej</div>
+        <div class="swatch-hex">#7c9f67</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background: var(--salvej-sv);"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Šalvěj světlá</div>
+        <div class="swatch-var">--salvej-sv</div>
+        <div class="swatch-hex">#8fb57a</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

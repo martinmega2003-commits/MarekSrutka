@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reference — Marek Šrůtka s.r.o.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E0E0C;
+    --panel:#16150F;
+    --line:#2C2B27;
+    --text:#F2F0EA;
+    --muted:#8E8B83;
+    --body:#C5C2BA;
+    --flame:#E8871E;
+    --pad:44px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  body{
+    background:var(--ink);color:var(--text);
+    font-family:'Barlow',system-ui,sans-serif;
+    font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:1280px;margin:0 auto;padding:0 var(--pad)}
+
+  .refs{padding:120px 0 128px}
+
+  /* ---------- hlavička ---------- */
+  .head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    gap:32px;flex-wrap:wrap;margin-bottom:16px;
+  }
+  .head h2{
+    font-family:'Barlow Condensed',sans-serif;font-weight:600;
+    font-size:clamp(40px,4.4vw,58px);line-height:1;letter-spacing:-.01em;
+  }
+  .count{font-size:16px;color:var(--muted)}
+  .lede{font-size:19px;color:var(--body);max-width:46ch;margin-bottom:52px}
+
+  /* ---------- pás přes celou šířku ---------- */
+  .strip{
+    display:flex;gap:26px;
+    overflow-x:auto;overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    scroll-padding-left:max(var(--pad),calc((100vw - 1280px)/2 + var(--pad)));
+    padding:0 var(--pad) 22px max(var(--pad),calc((100vw - 1280px)/2 + var(--pad)));
+    -webkit-overflow-scrolling:touch;
+  }
+  .strip::-webkit-scrollbar{height:3px}
+  .strip::-webkit-scrollbar-track{background:var(--line)}
+  .strip::-webkit-scrollbar-thumb{background:var(--flame)}
+
+  .job{flex:0 0 clamp(280px,42vw,560px);scroll-snap-align:start}
+
+  .frame{position:relative;aspect-ratio:16/10;background:var(--panel);overflow:hidden}
+  .frame img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.62) contrast(1.05)}
+  .frame-empty{
+    position:absolute;inset:0;display:grid;place-items:center;
+    background:repeating-linear-gradient(45deg,rgba(232,135,30,.075) 0 2px,transparent 2px 10px),var(--panel);
+    color:#4F4E48;font-size:13.5px;
+  }
+
+  .cap{display:flex;gap:16px;padding-top:16px;border-top:1px solid var(--line);margin-top:16px}
+  .cap-year{
+    font-family:'Barlow Condensed',sans-serif;font-weight:600;
+    font-size:19px;color:var(--flame);flex-shrink:0;padding-top:1px;
+  }
+  .cap h3{
+    font-family:'Barlow Condensed',sans-serif;font-weight:600;
+    font-size:23px;line-height:1.15;margin-bottom:3px;
+  }
+  .cap p{font-size:14.5px;color:var(--muted)}
+
+  /* ---------- loga ---------- */
+  .logos{margin-top:78px;padding-top:32px;border-top:1px solid var(--line)}
+  .logos > p{font-size:16px;color:var(--muted);margin-bottom:24px}
+  .logo-row{display:flex;flex-wrap:wrap;align-items:center;gap:52px}
+  .logo{
+    height:34px;display:flex;align-items:center;color:var(--muted);
+    font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:21px;
+    opacity:.7;filter:grayscale(1);transition:opacity .2s ease,filter .2s ease;
+  }
+  .logo:hover{opacity:1;filter:grayscale(0)}
+  .logo img{height:100%;width:auto;display:block}
+
+  /* ---------- patka ---------- */
+  .foot{
+    margin-top:72px;padding-top:32px;border-top:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;
+  }
+  .foot p{color:var(--body);max-width:48ch;font-size:18px}
+  .btn{
+    display:inline-block;background:var(--flame);color:#0E0E0C;text-decoration:none;
+    font-weight:500;font-size:17px;padding:14px 28px;border-radius:2px;white-space:nowrap;
+    transition:background .18s ease;
+  }
+  .btn:hover{background:#F59A33}
+
+  @media (max-width:820px){
+    :root{--pad:22px}
+    .refs{padding:72px 0 84px}
+    .lede{margin-bottom:34px;font-size:17.5px}
+    .logos{margin-top:52px}
+    .foot{margin-top:52px}
+  }
+</style>
+</head>
+<body>
+
+<section class="refs">
+
+  <div class="wrap">
+    <div class="head">
+      <h2>Reference</h2>
+      <span class="count">Výběr z hotových zakázek</span>
+    </div>
+    <p class="lede">U každé je vidět, co to bylo, kde a kdy. Posuňte pás do strany.</p>
+  </div>
+
+  <div class="strip">
+
+    <article class="job">
+      <div class="frame">
+        <div class="frame-empty">fotka zakázky</div>
+        <!-- <img src="ref-1.jpg" alt="Nosná konstrukce výrobní haly"> -->
+      </div>
+      <div class="cap">
+        <span class="cap-year">2024</span>
+        <div>
+          <h3>Nosná konstrukce výrobní haly</h3>
+          <p>Hodonínsko — výroba i montáž podle projektu</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="frame">
+        <div class="frame-empty">fotka zakázky</div>
+        <!-- <img src="ref-2.jpg" alt="Skladovací nádrže"> -->
+      </div>
+      <div class="cap">
+        <span class="cap-year">2024</span>
+        <div>
+          <h3>Skladovací nádrže</h3>
+          <p>Břeclavsko — oprava pláště a potrubí</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="frame">
+        <div class="frame-empty">fotka zakázky</div>
+        <!-- <img src="ref-3.jpg" alt="Renovace strojního dílu"> -->
+      </div>
+      <div class="cap">
+        <span class="cap-year">2023</span>
+        <div>
+          <h3>Renovace strojního dílu</h3>
+          <p>Hodonín — svařování litiny</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="frame">
+        <div class="frame-empty">fotka zakázky</div>
+        <!-- <img src="ref-4.jpg" alt="Schodiště a zábradlí"> -->
+      </div>
+      <div class="cap">
+        <span class="cap-year">2023</span>
+        <div>
+          <h3>Schodiště a zábradlí</h3>
+          <p>Kyjovsko — vlastní návrh</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="frame">
+        <div class="frame-empty">fotka zakázky</div>
+        <!-- <img src="ref-5.jpg" alt="Potrubní rozvod"> -->
+      </div>
+      <div class="cap">
+        <span class="cap-year">2022</span>
+        <div>
+          <h3>Potrubní rozvod</h3>
+          <p>Hodonín — nerez, svařování na místě</p>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="wrap">
+
+    <div class="logos">
+      <p>Spolupracujeme například s</p>
+      <div class="logo-row">
+        <div class="logo">MND</div>
+        <div class="logo">Doplň firmu</div>
+        <div class="logo">Doplň firmu</div>
+        <div class="logo">Doplň firmu</div>
+        <!-- <div class="logo"><img src="logo-1.svg" alt="Název firmy"></div> -->
+      </div>
+    </div>
+
+    <div class="foot">
+      <p>Podobnou zakázku řešíte taky? Pošlete výkres nebo jen fotku a ozveme se s cenou a termínem.</p>
+      <a class="btn" href="#">Poptat zakázku</a>
+    </div>
+
+  </div>
+
+</section>
+
+</body>
+</html>
