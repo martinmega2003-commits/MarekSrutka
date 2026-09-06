@@ -24,6 +24,159 @@ window.addEventListener('resize', function () {
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
+/* pás referencí: na PC bez trackpadu jinak nejde rozjet — svislý scroll kolečkem myši překlopíme na vodorovný */
+(function () {
+  var strip = document.querySelector('.ref-strip');
+  if (!strip) return;
+  strip.addEventListener('wheel', function (e) {
+    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return; // uživatel už scrolluje vodorovně (trackpad) — nezasahovat
+    e.preventDefault();
+    strip.scrollLeft += e.deltaY;
+  }, { passive: false });
+})();
+
+/* ============================================================
+   SVÁŘEČSKÁ ŠKOLA — filtr kurzů (jen na svarecska-skola.html)
+   ============================================================ */
+(function () {
+  var listEl = document.getElementById('list');
+  if (!listEl) return;
+
+  var KURZY = [
+    { typ: 'zaskoleni', kod: 'ZP 81-2 1.1', metoda: '81', nazev: 'Řezání a drážkování kyslíkem', mat: 'Nelegované oceli', t: 20, p: 36 },
+    { typ: 'zaskoleni', kod: 'ZP 83-2 1.1', metoda: '83', nazev: 'Řezání plazmou', mat: 'Nelegované oceli', t: 20, p: 36 },
+    { typ: 'zaskoleni', kod: 'ZP 311-1 1.1', metoda: '311', nazev: 'Stehování plamenem', mat: 'Nelegované oceli', t: 20, p: 36 },
+    { typ: 'zaskoleni', kod: 'ZP 912-9 1.1', metoda: '912', nazev: 'Plamenové tvrdé pájení', mat: 'Měď a slitiny', t: 20, p: 36 },
+
+    { typ: 'zakladni', kod: 'ZK 111 1.1', metoda: '111', nazev: 'Ruční obloukové svařování obalenou elektrodou', mat: 'Nelegované a nízkolegované oceli', t: 40, p: 120 },
+    { typ: 'zakladni', kod: 'ZK 111 8', metoda: '111', nazev: 'Ruční obloukové svařování obalenou elektrodou', mat: 'Vysokolegované austenitické oceli', t: 40, p: 120 },
+    { typ: 'zakladni', kod: 'ZK 135 1.1', metoda: '135', nazev: 'Svařování tavící se elektrodou v aktivním plynu', mat: 'Nelegované oceli bez předehřevu', t: 40, p: 96 },
+    { typ: 'zakladni', kod: 'ZK 141 1.1', metoda: '141', nazev: 'Svařování netavící se elektrodou v inertním plynu', mat: 'Nelegované a nízkolegované oceli', t: 40, p: 96 },
+    { typ: 'zakladni', kod: 'ZK 141 8', metoda: '141', nazev: 'Svařování netavící se elektrodou v inertním plynu', mat: 'Vysokolegované austenitické oceli', t: 40, p: 96 },
+    { typ: 'zakladni', kod: 'ZK 131 21', metoda: '131', nazev: 'Svařování tavící se elektrodou v inertním plynu', mat: 'Hliník a jeho slitiny', t: 40, p: 96 },
+    { typ: 'zakladni', kod: 'ZK 311 1.1', metoda: '311', nazev: 'Svařování kyslíko-acetylenovým plamenem', mat: 'Nelegované oceli bez předehřevu', t: 40, p: 120 },
+    { typ: 'zakladni', kod: 'ZK 912 31', metoda: '912', nazev: 'Měkké a tvrdé pájení plamenem', mat: 'Měď a její slitiny', t: 40, p: 64 },
+
+    { typ: 'uredni', kod: '111', metoda: '111', nazev: 'Ruční obloukové svařování obalenou elektrodou', mat: 'Materiál 1.1, 1.2, 1.3, 6 — ČSN EN ISO 9606-1', t: 32, p: 128 },
+    { typ: 'uredni', kod: '111', metoda: '111', nazev: 'Ruční obloukové svařování obalenou elektrodou', mat: 'Materiál 8 — ČSN EN ISO 9606-1', t: 32, p: 128 },
+    { typ: 'uredni', kod: '311', metoda: '311', nazev: 'Svařování kyslíko-acetylenovým plamenem', mat: 'Materiál 1.1, 1.2, 6 — ČSN EN ISO 9606-1', t: 32, p: 128 },
+    { typ: 'uredni', kod: '135', metoda: '135', nazev: 'Svařování tavící se elektrodou v aktivním plynu', mat: 'Materiál 1.1, 1.2, 1.3, 6 — ČSN EN ISO 9606-1', t: 32, p: 128 },
+    { typ: 'uredni', kod: '135', metoda: '135', nazev: 'Svařování tavící se elektrodou v aktivním plynu', mat: 'Materiál 8, 21, 22, 23 — 9606-1 a 9606-2', t: 32, p: 128 },
+    { typ: 'uredni', kod: '131', metoda: '131', nazev: 'Svařování tavící se elektrodou v inertním plynu', mat: 'Materiál 8, 21, 22, 23 — 9606-1 a 9606-2', t: 32, p: 128 },
+    { typ: 'uredni', kod: '141', metoda: '141', nazev: 'Svařování netavící se elektrodou v inertním plynu', mat: 'Materiál 1.1, 1.2, 1.3 — ČSN EN ISO 9606-1', t: 32, p: 128 },
+    { typ: 'uredni', kod: '141', metoda: '141', nazev: 'Svařování netavící se elektrodou v inertním plynu', mat: 'Materiál 8, 21, 22, 31 — 9606-1 a 9606-2', t: 32, p: 128 },
+    { typ: 'uredni', kod: '912', metoda: '912', nazev: 'Pájení mědi a jejích slitin', mat: 'Materiál 31 — ČSN 050710, ČSN EN ISO 13585', t: 32, p: 48 },
+
+    { typ: 'periodicka', kod: '111 · 311 · 135 · 141', metoda: '111,311,135,141', nazev: 'Periodická úřední zkouška, nelegované oceli', mat: 'Materiál 1.1, 1.2, 1.3, 6', t: 8, p: 16 },
+    { typ: 'periodicka', kod: '111 · 131 · 135 · 141', metoda: '111,131,135,141', nazev: 'Periodická úřední zkouška, vysokolegované oceli a neželezné kovy', mat: 'Materiál 8, 21, 22, 31', t: 8, p: 16 },
+    { typ: 'periodicka', kod: '912', metoda: '912', nazev: 'Periodická zkouška, pájení mědi', mat: 'Materiál 31', t: 8, p: 16 }
+  ];
+
+  var TYPY = [
+    { id: 'vse', label: 'Vše' },
+    { id: 'zaskoleni', label: 'Zaškolení' },
+    { id: 'zakladni', label: 'Základní kurz' },
+    { id: 'uredni', label: 'Úřední zkouška' },
+    { id: 'periodicka', label: 'Periodická zkouška' }
+  ];
+  var NAZVY_TYPU = {
+    zaskoleni: 'Zaškolení', zakladni: 'Základní kurz',
+    uredni: 'Úřední zkouška', periodicka: 'Periodická zkouška'
+  };
+  var METODY = ['vse', '111', '131', '135', '141', '311', '912', '81', '83'];
+  var METODY_POPIS = {
+    111: 'ruční obloukem (elektroda)',
+    131: 'MIG (tavící se elektroda, inertní plyn)',
+    135: 'MAG (tavící se elektroda, aktivní plyn)',
+    141: 'TIG (netavící se elektroda)',
+    311: 'plamenem (kyslík-acetylen)',
+    912: 'pájení plamenem',
+    81: 'řezání kyslíkem',
+    83: 'řezání plazmou'
+  };
+
+  var stavTyp = 'vse', stavMetoda = 'vse';
+
+  function chip(text, aktivni, popis) {
+    var b = document.createElement('button');
+    b.className = 'chip';
+    b.type = 'button';
+    b.textContent = text;
+    b.setAttribute('aria-pressed', aktivni ? 'true' : 'false');
+    if (popis) b.title = popis;
+    return b;
+  }
+
+  function vykresliFiltry() {
+    var wt = document.getElementById('typy');
+    var wm = document.getElementById('metody');
+    wt.innerHTML = ''; wm.innerHTML = '';
+
+    TYPY.forEach(function (t) {
+      var b = chip(t.label, stavTyp === t.id);
+      b.onclick = function () { stavTyp = t.id; vykresli(); };
+      wt.appendChild(b);
+    });
+
+    METODY.forEach(function (m) {
+      var b = chip(m === 'vse' ? 'Všechny' : m, stavMetoda === m, METODY_POPIS[m]);
+      b.onclick = function () { stavMetoda = m; vykresli(); };
+      wm.appendChild(b);
+    });
+  }
+
+  function skloneni(n) {
+    if (n === 1) return '1 kurz';
+    if (n >= 2 && n <= 4) return n + ' kurzy';
+    return n + ' kurzů';
+  }
+
+  function vykresli() {
+    vykresliFiltry();
+
+    var vysledky = KURZY.filter(function (k) {
+      var okTyp = stavTyp === 'vse' || k.typ === stavTyp;
+      var okMet = stavMetoda === 'vse' || k.metoda.split(',').indexOf(stavMetoda) !== -1;
+      return okTyp && okMet;
+    });
+
+    document.getElementById('count').textContent = skloneni(vysledky.length);
+
+    listEl.innerHTML = '';
+
+    if (!vysledky.length) {
+      var d = document.createElement('p');
+      d.className = 'course-empty';
+      d.textContent = 'Této kombinaci nic neodpovídá. Zkuste jinou metodu, nebo zavolejte a domluvíme se.';
+      listEl.appendChild(d);
+      return;
+    }
+
+    vysledky.forEach(function (k) {
+      var el = document.createElement('article');
+      el.className = 'course';
+      el.innerHTML =
+        '<div class="c-code">' + k.kod + '</div>' +
+        '<div>' +
+          '<div class="c-name">' + k.nazev + '</div>' +
+          '<span class="c-mat">' + k.mat + '</span>' +
+        '</div>' +
+        '<div class="c-meta">' +
+          '<span class="c-h">teorie <b>' + k.t + ' h</b></span>' +
+          '<span class="c-h">praxe <b>' + k.p + ' h</b></span>' +
+          '<span class="badge">' + NAZVY_TYPU[k.typ] + '</span>' +
+        '</div>';
+      listEl.appendChild(el);
+    });
+  }
+
+  document.getElementById('reset').onclick = function () {
+    stavTyp = 'vse'; stavMetoda = 'vse'; vykresli();
+  };
+
+  vykresli();
+})();
+
 /* ============================================================
    KÓTOVÁNÍ — sdílený hover efekt technického výkresu
    (používá menu i tlačítka .btn-kota)

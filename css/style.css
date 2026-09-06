@@ -495,7 +495,10 @@ a{ color:inherit; }
    CO DĚLÁME
    ============================================================ */
 .work{
-  background:var(--bg-deep);
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.022) 0 1px, transparent 1px 56px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.022) 0 1px, transparent 1px 56px),
+    var(--bg-deep);
   padding-block:var(--section-y);
 }
 
@@ -617,7 +620,12 @@ a{ color:inherit; }
    REFERENCE
    ============================================================ */
 .references{
-  background:var(--bg-deep);
+  position:relative;
+  background:
+    radial-gradient(55% 60% at 10% 90%, rgba(238,118,32,.09), transparent 62%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.022) 0 1px, transparent 1px 56px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.022) 0 1px, transparent 1px 56px),
+    var(--bg-deep);
   padding-block:var(--section-y);
 }
 .ref-lede{
@@ -723,6 +731,213 @@ a{ color:inherit; }
 }
 @media (min-width:900px){
   .ref-job{ flex-basis:clamp(340px, 30vw, 420px); }
+}
+
+/* ============================================================
+   SVÁŘEČSKÁ ŠKOLA — samostatná stránka
+   ============================================================ */
+.page-hero{
+  background:var(--bg-deep);
+  padding-block:clamp(56px, 10vw, 96px) var(--section-y);
+}
+.kicker{
+  color:var(--orange);
+  font-family:var(--f-head);
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  font-size:15px;
+  margin:0 0 14px;
+}
+.page-hero h1{
+  font-family:var(--f-head);
+  font-weight:700;
+  font-size:clamp(38px, 7vw, 64px);
+  line-height:1.03;
+  margin:0 0 18px;
+  text-wrap:balance;
+}
+.page-hero p{
+  margin:0;
+  max-width:58ch;
+  color:var(--body-dim);
+  font-size:clamp(16px, 15px + .4vw, 18px);
+}
+.page-hero-who{
+  margin-top:16px !important;
+  color:var(--text-dim) !important;
+  font-size:15px !important;
+}
+
+.finder{
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.022) 0 1px, transparent 1px 56px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.022) 0 1px, transparent 1px 56px),
+    var(--bg);
+}
+
+.frow{ margin-bottom:20px; }
+.flabel{
+  font-size:13px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  margin:0 0 10px;
+}
+.chips{ display:flex; flex-wrap:wrap; gap:9px; }
+.fhint{
+  margin:12px 0 0;
+  font-size:13px;
+  line-height:1.6;
+  color:var(--text-dim);
+  max-width:70ch;
+}
+.chip{
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--body-dim);
+  font-family:var(--f-body);
+  font-size:15px;
+  padding:8px 15px;
+  cursor:pointer;
+  transition:border-color .16s ease, background .16s ease, color .16s ease;
+}
+.chip:hover{ border-color:var(--orange); color:var(--text); }
+.chip[aria-pressed="true"]{ background:var(--orange); border-color:var(--orange); color:#fff; font-weight:600; }
+
+.fbar{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+  margin:34px 0 20px;
+  padding-top:22px;
+  border-top:1px solid var(--line-soft);
+}
+.fcount{ font-family:var(--f-head); font-weight:600; font-size:22px; color:var(--text); }
+.freset{
+  background:none;
+  border:0;
+  color:var(--text-dim);
+  font-size:15px;
+  cursor:pointer;
+  font-family:var(--f-body);
+  border-bottom:1px solid var(--line);
+  padding-bottom:2px;
+}
+.freset:hover{ color:var(--orange); border-bottom-color:var(--orange); }
+
+.course-list{ display:grid; gap:12px; padding-bottom:8px; }
+.course{
+  display:grid;
+  gap:10px;
+  border:1px solid var(--line-soft);
+  background:var(--panel);
+  padding:16px 18px;
+}
+.course:hover{ border-color:var(--orange); }
+.c-code{ font-family:var(--f-head); font-weight:700; font-size:19px; color:var(--orange); line-height:1.1; }
+.c-name{ font-size:16px; color:var(--text); }
+.c-mat{ display:block; font-size:13.5px; color:var(--text-dim); margin-top:2px; }
+.c-meta{ display:flex; gap:18px; flex-wrap:wrap; align-items:center; }
+.c-h{ font-size:14px; color:var(--text-dim); }
+.c-h b{ font-family:var(--f-head); font-size:16px; color:var(--text); font-weight:600; }
+.badge{ font-size:12.5px; color:var(--text-dim); border:1px solid var(--line-soft); padding:4px 10px; }
+
+.course-empty{ padding:32px 0; color:var(--text-dim); }
+
+.outcomes{
+  margin-top:clamp(40px, 7vw, 64px);
+  padding-top:clamp(32px, 6vw, 44px);
+  border-top:1px solid var(--line-soft);
+  display:grid;
+  gap:24px;
+}
+.outcome{ border-top:2px solid var(--orange); padding-top:16px; }
+.outcome h3{ font-family:var(--f-head); font-weight:600; font-size:19px; margin:0 0 7px; color:var(--text); }
+.outcome p{ margin:0; font-size:14.5px; color:var(--text-dim); }
+
+@media (min-width:620px){
+  .course{ grid-template-columns:110px minmax(0,1fr) auto; align-items:center; gap:20px; }
+  .outcomes{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+}
+@media (min-width:900px){
+  .outcomes{ grid-template-columns:repeat(4, minmax(0,1fr)); }
+}
+
+/* ============================================================
+   KONTAKT — samostatná stránka
+   ============================================================ */
+.contact-zone{
+  display:grid;
+  gap:clamp(36px, 6vw, 52px);
+  align-items:start;
+  padding-block:0 var(--section-y);
+}
+
+.people{ display:grid; }
+.person{
+  padding:24px 0;
+  border-top:1px solid var(--line-soft);
+}
+.person:first-child{ border-top:0; padding-top:0; }
+.person-role{
+  font-family:var(--f-head);
+  font-weight:600;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  font-size:13px;
+  color:var(--orange);
+  margin:0 0 6px;
+}
+.person h2{ font-family:var(--f-head); font-weight:600; font-size:24px; margin:0 0 12px; color:var(--text); }
+.person a{
+  display:block;
+  width:fit-content;
+  color:var(--text);
+  text-decoration:none;
+  font-size:16px;
+  padding:3px 0;
+  border-bottom:1px solid transparent;
+  transition:color .16s ease, border-color .16s ease;
+}
+.person a:hover{ color:var(--orange); border-bottom-color:var(--orange); }
+.person a.big{ font-family:var(--f-head); font-weight:600; font-size:24px; }
+
+.company{ margin-top:8px; padding-top:24px; border-top:1px solid var(--line-soft); }
+.company h3, .hours h3{ font-family:var(--f-head); font-weight:600; font-size:18px; margin:0 0 10px; color:var(--text); }
+.company address{ font-style:normal; color:var(--body-dim); font-size:15.5px; margin-bottom:12px; }
+.company dl{ display:grid; grid-template-columns:auto 1fr; gap:4px 16px; font-size:14.5px; }
+.company dt{ color:var(--text-dim); }
+.company dd{ color:var(--text); }
+
+.hours{ margin-top:24px; padding-top:24px; border-top:1px solid var(--line-soft); }
+.hours-list{ margin:0 0 14px; display:grid; gap:6px; }
+.hours-row{ display:flex; justify-content:space-between; gap:16px; max-width:320px; font-size:15.5px; }
+.hours-row dt{ color:var(--text-dim); }
+.hours-row dd{ margin:0; color:var(--text); font-weight:500; }
+.hours p{ margin:0; font-size:15px; color:var(--body-dim); }
+
+.map{
+  position:relative;
+  aspect-ratio:4/3;
+  background:var(--panel);
+  overflow:hidden;
+  border:1px solid var(--line-soft);
+  clip-path:polygon(0 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%);
+}
+.map iframe{ width:100%; height:100%; border:0; display:block; filter:grayscale(.65) contrast(1.05) brightness(.85); }
+.map-note{
+  display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  margin-top:14px; font-size:14px; color:var(--text-dim);
+}
+.map-note a{ color:var(--text); text-decoration:none; border-bottom:1.5px solid var(--orange); padding-bottom:2px; }
+.map-note a:hover{ color:var(--orange); }
+
+@media (min-width:900px){
+  .contact-zone{ grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); }
+  .map-col{ position:sticky; top:calc(var(--header-h) + 24px); }
 }
 
 /* ============================================================

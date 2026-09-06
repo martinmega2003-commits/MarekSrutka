@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Svářečská škola 11-250 — kurzy a zkoušky svářečů, Hodonín</title>
+<meta name="description" content="Zaškolení, základní kurzy a úřední i periodické zkoušky svářečů podle norem EU. Praktická výuka v Hodoníně, vede mezinárodní svářečský technolog IWT.">
+<meta name="theme-color" content="#161514">
+<link rel="icon" type="image/png" href="img/Logo.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css?v=26">
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+
+    <a class="brand" href="index.html">
+      <img class="brand-mark" src="img/Logo.png" alt="Marek Šrůtka s.r.o.">
+      <span>Marek Šrůtka<span class="brand-suffix"> s.r.o.</span></span>
+    </a>
+
+    <a class="phone" href="tel:+420776000020">776&nbsp;000&nbsp;020</a>
+
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav">
+      <span></span>
+      <span class="visually-hidden">Menu</span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <a href="svarecska-skola.html">Svářečská škola</a>
+      <a href="index.html#zamecnictvi">Zámečnictví</a>
+      <a href="kontakt.html">Kontakt</a>
+      <svg class="nav-dim" aria-hidden="true" focusable="false"></svg>
+    </nav>
+
+  </div>
+</header>
+
+<main>
+
+  <!-- ===================== ÚVOD ===================== -->
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="kicker">Registrační číslo 11-250, Hodonín</p>
+      <h1>Kurzy a zkoušky svářečů</h1>
+      <p>Zaškolení, základní kurzy, úřední i periodické zkoušky podle norem EU. Praktická výuka v plně vybavené dílně, termíny domlouváme individuálně.</p>
+      <p class="page-hero-who">Vede Marek Šrůtka, mezinárodní svářečský technolog IWT</p>
+    </div>
+  </section>
+
+  <!-- ===================== FILTR KURZŮ ===================== -->
+  <section class="section finder" id="kurzy">
+    <div class="wrap">
+
+      <div class="frow">
+        <p class="flabel">Co potřebujete</p>
+        <div class="chips" id="typy"></div>
+      </div>
+
+      <div class="frow">
+        <p class="flabel">Metoda svařování</p>
+        <div class="chips" id="metody"></div>
+        <p class="fhint">Nevíte, co znamenají čísla? 111 ruční obloukem (elektroda) · 131 MIG · 135 MAG · 141 TIG · 311 plamenem · 912 pájení · 81 řezání kyslíkem · 83 řezání plazmou</p>
+      </div>
+
+      <div class="fbar">
+        <span class="fcount" id="count"></span>
+        <button class="freset" id="reset" type="button">Zrušit filtr</button>
+      </div>
+
+      <div class="course-list" id="list"></div>
+
+      <div class="outcomes">
+        <div class="outcome">
+          <h3>Zaškolení</h3>
+          <p>5–7 dní. Osvědčení o zaškolení a Průkaz zaškoleného pracovníka.</p>
+        </div>
+        <div class="outcome">
+          <h3>Základní kurz</h3>
+          <p>120–160 hodin. Osvědčení o základní zkoušce a Průkaz odborné kvalifikace svářeče.</p>
+        </div>
+        <div class="outcome">
+          <h3>Úřední zkouška</h3>
+          <p>Dle ČSN EN ISO 9606 a dalších norem. Ceny orientační, u většího rozsahu dohodou.</p>
+        </div>
+        <div class="outcome">
+          <h3>Periodická zkouška</h3>
+          <p>2–3 dny podle zručnosti. Osvědčení s celostátní platností. Cena dohodou.</p>
+        </div>
+      </div>
+
+      <div class="work-foot">
+        <p>Nevíte, co přesně potřebujete? Zavolejte a projdeme to spolu — termín domluvíme podle vás.</p>
+        <a class="btn btn--solid btn-kota" href="tel:+420776000020">776 000 020<svg class="btn-dim" aria-hidden="true" focusable="false"></svg></a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== PATIČKA ===================== -->
+<footer class="site-footer" id="kontakt">
+  <div class="wrap">
+    <div class="footer-inner">
+
+      <div>
+        <h4>Kontakt</h4>
+        <p>
+          <a href="tel:+420776000020">776 000 020</a><br>
+          <a href="mailto:marek@srutka.eu">marek@srutka.eu</a>
+        </p>
+      </div>
+
+      <div>
+        <h4>Dílna</h4>
+        <p>U Kyjovky 3939/18<br>695 01 Hodonín</p>
+      </div>
+
+      <div>
+        <h4>Firma</h4>
+        <p>Marek Šrůtka s.r.o.<br>IČO: 03760294 · DIČ: CZ03760294</p>
+      </div>
+
+    </div>
+    <p class="copyright">© <span id="year">2026</span> Marek Šrůtka s.r.o. — zámečnická dílna a svářečská škola 11-250</p>
+  </div>
+</footer>
+
+<script src="js/script.js?v=26"></script>
+
+</body>
+</html>
