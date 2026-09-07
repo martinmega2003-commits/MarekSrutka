@@ -35,32 +35,67 @@ document.getElementById('year').textContent = new Date().getFullYear();
   }, { passive: false });
 })();
 
-/* loga partnerů: při doscrollování k nim se tiše postupně objeví (bez JS / s reduced-motion zůstávají rovnou vidět) */
-(function () {
-  var row = document.querySelector('.ref-logo-row');
-  if (!row) return;
-  var logos = Array.prototype.slice.call(row.querySelectorAll('.ref-logo'));
-  if (!logos.length) return;
+/* ============================================================
+   DROBNÉ SCROLL "REVEAL" AKCENTY — několik malých, vedlejších míst
+   po stránce (nikdy na hlavních nadpisech/hero). Sdílený mechanismus:
+   observer sleduje kontejner, při vjezdu do okna přidá .reveal-in
+   všem položkám najednou (jen s malým časovým rozestupem).
+   Bez IntersectionObserver / s reduced-motion se .reveal-armed
+   vůbec nepřidá, takže vše zůstává v běžném (plně viditelném) stavu.
+   ============================================================ */
+function armScrollReveal(container, items, opts) {
+  if (!container || !items || !items.length) return;
   if (!('IntersectionObserver' in window)) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  logos.forEach(function (el, i) {
+  var stagger = (opts && opts.stagger) || 0;
+  var threshold = (opts && opts.threshold) || 0.25;
+
+  items.forEach(function (el, i) {
     el.classList.add('reveal-armed');
-    el.style.transition = 'opacity .5s cubic-bezier(.22,.9,.3,1) ' + (i * 70) + 'ms, transform .5s cubic-bezier(.22,.9,.3,1) ' + (i * 70) + 'ms';
+    if (stagger) el.style.transitionDelay = (i * stagger) + 'ms';
   });
 
   var io = new IntersectionObserver(function (entries, obs) {
     entries.forEach(function (entry) {
       if (!entry.isIntersecting) return;
-      logos.forEach(function (el) { el.classList.add('reveal-in'); });
+      items.forEach(function (el) { el.classList.add('reveal-in'); });
       obs.disconnect();
       window.setTimeout(function () {
-        logos.forEach(function (el) { el.style.transition = ''; });
-      }, 900);
+        items.forEach(function (el) { el.style.transitionDelay = ''; });
+      }, stagger * items.length + 700);
     });
-  }, { threshold: 0.25 });
+  }, { threshold: threshold });
 
-  io.observe(row);
+  io.observe(container);
+}
+
+/* loga partnerů: tiché postupné prolnutí */
+(function () {
+  var row = document.querySelector('.ref-logo-row');
+  if (!row) return;
+  armScrollReveal(row, Array.prototype.slice.call(row.querySelectorAll('.ref-logo')), { stagger: 70, threshold: 0.25 });
+})();
+
+/* karty zakázek v Referencích: jemné "doostření" při vjezdu pásu do okna */
+(function () {
+  var strip = document.querySelector('.ref-strip');
+  if (!strip) return;
+  armScrollReveal(strip, Array.prototype.slice.call(strip.querySelectorAll('.ref-job')), { stagger: 90, threshold: 0.15 });
+})();
+
+/* čísla „01“/„02“ u specifikací v Kdo jsme: podtržítková kótovací linka se dokreslí */
+(function () {
+  var wrap = document.querySelector('.about-specs');
+  if (!wrap) return;
+  armScrollReveal(wrap, Array.prototype.slice.call(wrap.querySelectorAll('.spec-head .n')), { stagger: 120, threshold: 0.4 });
+})();
+
+/* časová osa: tečkovaná spojnice nad každou položkou se "odvine" shora dolů (jen desktop layout ≥900px) */
+(function () {
+  var items = document.querySelector('.timeline-items');
+  if (!items) return;
+  armScrollReveal(items, Array.prototype.slice.call(items.querySelectorAll('li')), { stagger: 100, threshold: 0.3 });
 })();
 
 /* ============================================================
