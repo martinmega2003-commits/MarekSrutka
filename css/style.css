@@ -553,30 +553,7 @@ a{ color:inherit; }
 .work-item{
   display:flex;
   flex-direction:column;
-  position:relative;
 }
-/* rohové značky karty — stejný motiv jako u fotek v Kdo jsme a log partnerů;
-   bez JS/s reduced-motion jsou rovnou vidět, jinak při scrollu "sepnou" na místo */
-.work-item::before,
-.work-item::after{
-  content:"";
-  position:absolute;
-  width:14px; height:14px;
-  border:2px solid var(--orange);
-  pointer-events:none;
-  opacity:1;
-  transform:scale(1);
-}
-.work-item::before{ top:-6px; left:-6px; border-right:0; border-bottom:0; }
-.work-item::after{ bottom:-6px; right:-6px; border-left:0; border-top:0; }
-.work-item.reveal-armed::before,
-.work-item.reveal-armed::after{
-  opacity:0;
-  transform:scale(.4);
-  transition:opacity .4s cubic-bezier(.22,.9,.3,1), transform .4s cubic-bezier(.22,.9,.3,1);
-}
-.work-item.reveal-armed.reveal-in::before,
-.work-item.reveal-armed.reveal-in::after{ opacity:1; transform:scale(1); }
 
 /* zkosený roh — stejný motiv jako řez v hero sekci */
 .work-shot{
@@ -599,6 +576,32 @@ a{ color:inherit; }
   font-size:13px;
   letter-spacing:.04em;
 }
+/* rohové značky na fotce — stejný motiv jako u fotek v Kdo jsme a log partnerů;
+   jen dolní levý a pravý roh (nahoře je zaříznutý roh fotky, tam by kolidovaly);
+   bez JS/s reduced-motion jsou rovnou vidět, jinak při scrollu "sepnou" na místo */
+.work-shot::before,
+.work-shot::after{
+  content:"";
+  position:absolute;
+  bottom:8px;
+  width:14px; height:14px;
+  border:2px solid var(--orange);
+  border-top:0;
+  pointer-events:none;
+  opacity:1;
+  transform:scale(1);
+  z-index:2;
+}
+.work-shot::before{ left:8px; border-right:0; }
+.work-shot::after{ right:8px; border-left:0; }
+.work-item.reveal-armed .work-shot::before,
+.work-item.reveal-armed .work-shot::after{
+  opacity:0;
+  transform:scale(.4);
+  transition:opacity .4s cubic-bezier(.22,.9,.3,1), transform .4s cubic-bezier(.22,.9,.3,1);
+}
+.work-item.reveal-armed.reveal-in .work-shot::before,
+.work-item.reveal-armed.reveal-in .work-shot::after{ opacity:1; transform:scale(1); }
 
 .work-item h3{
   font-family:var(--f-head);
