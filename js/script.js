@@ -100,13 +100,6 @@ function armScrollReveal(container, items, opts) {
   armScrollReveal(items, Array.prototype.slice.call(items.querySelectorAll('li')), { stagger: 100, threshold: 0.3 });
 })();
 
-/* karty „Co děláme“: rohové značky postupně „sepnou“ na místo */
-(function () {
-  var grid = document.querySelector('.work-grid');
-  if (!grid) return;
-  armScrollReveal(grid, Array.prototype.slice.call(grid.querySelectorAll('.work-item')), { stagger: 100, threshold: 0.2 });
-})();
-
 /* karty výstupů kurzů (jen na svarecska-skola.html) */
 (function () {
   var wrap = document.querySelector('.outcomes');
