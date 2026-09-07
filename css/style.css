@@ -352,7 +352,8 @@ a{ color:inherit; }
   .about-specs > .spec:nth-child(2){ order:4; }
   .spec{ margin-bottom:0; }
 }
-.shot{ position:relative; margin:0; }
+.shot{ position:relative; margin:0; will-change:transform; }
+/* jemný 3D náklon podle pozice myši — jen zařízení se skutečnou myší, viz js/script.js */
 .shot .frame{
   aspect-ratio:4/3;
   background:#2c2926 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M0 8L8 0' stroke='%23383431' stroke-width='1'/%3E%3C/svg%3E");
@@ -1282,4 +1283,46 @@ a{ color:inherit; }
   overflow:visible;
   pointer-events:none;
   opacity:0;
+}
+
+/* ============================================================
+   POSTUPUJÍCÍ KÓTOVACÍ LINKA — tenký ukazatel scroll pozice
+   při okraji obrazovky, ve stylu kótovacích čar webu.
+   Výška výplně řízená z js/script.js podle pozice scrollu.
+   ============================================================ */
+.scroll-kota{
+  position:fixed;
+  top:0;
+  right:max(3px, env(safe-area-inset-right));
+  width:3px;
+  height:100vh;
+  height:100dvh;
+  z-index:45;
+  pointer-events:none;
+}
+.scroll-kota-track{
+  position:absolute;
+  inset:0;
+  background:repeating-linear-gradient(to bottom, var(--line-soft) 0 1px, transparent 1px 10%);
+  opacity:.6;
+}
+.scroll-kota-fill{
+  position:absolute;
+  left:0; right:0; top:0;
+  height:0%;
+  background:var(--orange);
+}
+.scroll-kota-fill::after{
+  content:"";
+  position:absolute;
+  left:50%; bottom:-4px;
+  width:0; height:0;
+  border-style:solid;
+  border-width:5px 4px 0 4px;
+  border-color:var(--orange) transparent transparent transparent;
+  transform:translateX(-50%);
+}
+@media (max-width:619px){
+  .scroll-kota{ width:2px; }
+  .scroll-kota-fill::after{ border-width:4px 3px 0 3px; }
 }

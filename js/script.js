@@ -114,6 +114,96 @@ function armScrollReveal(container, items, opts) {
   armScrollReveal(wrap, Array.prototype.slice.call(wrap.querySelectorAll('.person')), { stagger: 100, threshold: 0.2 });
 })();
 
+/* počítadlo: čísla se „napočítají“ od 0 při scrollu do okna (bez JS/s reduced-motion zůstává rovnou cílová hodnota) */
+(function () {
+  var els = Array.prototype.slice.call(document.querySelectorAll('.count-up'));
+  if (!els.length) return;
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  els.forEach(function (el) {
+    var target = parseInt(el.getAttribute('data-target'), 10);
+    if (isNaN(target)) return;
+    el.textContent = '0';
+
+    var io = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        obs.disconnect();
+        var duration = 900;
+        var start = null;
+        function frame(ts) {
+          if (!start) start = ts;
+          var t = Math.min(1, (ts - start) / duration);
+          var eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = String(Math.round(target * eased));
+          if (t < 1) requestAnimationFrame(frame);
+          else el.textContent = String(target);
+        }
+        requestAnimationFrame(frame);
+      });
+    }, { threshold: 0.6 });
+
+    io.observe(el);
+  });
+})();
+
+/* jemný 3D náklon fotek podle pozice myši — jen zařízení se skutečnou myší (ne dotyk), respektuje reduced-motion */
+(function () {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var shots = document.querySelectorAll('.shot');
+  if (!shots.length) return;
+
+  shots.forEach(function (el) {
+    var raf = null;
+
+    el.addEventListener('mousemove', function (e) {
+      var r = el.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width;
+      var py = (e.clientY - r.top) / r.height;
+      var rx = (0.5 - py) * 8;
+      var ry = (px - 0.5) * 8;
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(function () {
+        el.style.transition = 'none';
+        el.style.transform = 'perspective(700px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+      });
+    });
+
+    el.addEventListener('mouseleave', function () {
+      if (raf) cancelAnimationFrame(raf);
+      el.style.transition = 'transform .4s cubic-bezier(.22,.9,.3,1)';
+      el.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg)';
+    });
+  });
+})();
+
+/* postupující kótovací linka u okraje: výška výplně = pozice scrollu na stránce */
+(function () {
+  var fill = document.querySelector('.scroll-kota-fill');
+  if (!fill) return;
+
+  var ticking = false;
+  function update() {
+    var doc = document.documentElement;
+    var scrollable = doc.scrollHeight - doc.clientHeight;
+    var pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+    fill.style.height = Math.min(100, Math.max(0, pct)) + '%';
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      window.requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+
 /* ============================================================
    SVÁŘEČSKÁ ŠKOLA — filtr kurzů (jen na svarecska-skola.html)
    ============================================================ */
