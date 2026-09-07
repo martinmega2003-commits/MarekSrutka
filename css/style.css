@@ -714,16 +714,15 @@ a{ color:inherit; }
 .ref-logo{
   /* pevný "box" pro logo bez ohledu na jeho skutečný poměr stran, aby se všechna loga vešla stejně velká */
   flex:0 0 auto;
-  width:clamp(84px, 22vw, 110px);
-  height:34px;
+  width:clamp(90px, 22vw, 116px);
+  height:44px;
+  padding:6px 10px;
   display:flex;
   align-items:center;
-  justify-content:flex-start;
-  color:var(--text-dim);
-  font-family:var(--f-head);
-  font-weight:600;
-  font-size:18px;
-  opacity:.85;
+  justify-content:center;
+  /* světlá podložka — tmavá/černá loga na tmavém pozadí webu jinak zaniknou; barvy loga samotného se nemění */
+  background:#f4f2ee;
+  opacity:.94;
   transition:opacity .2s ease;
 }
 .ref-logo:hover{ opacity:1; }
