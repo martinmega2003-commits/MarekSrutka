@@ -553,7 +553,30 @@ a{ color:inherit; }
 .work-item{
   display:flex;
   flex-direction:column;
+  position:relative;
 }
+/* rohové značky karty — stejný motiv jako u fotek v Kdo jsme a log partnerů;
+   bez JS/s reduced-motion jsou rovnou vidět, jinak při scrollu "sepnou" na místo */
+.work-item::before,
+.work-item::after{
+  content:"";
+  position:absolute;
+  width:14px; height:14px;
+  border:2px solid var(--orange);
+  pointer-events:none;
+  opacity:1;
+  transform:scale(1);
+}
+.work-item::before{ top:-6px; left:-6px; border-right:0; border-bottom:0; }
+.work-item::after{ bottom:-6px; right:-6px; border-left:0; border-top:0; }
+.work-item.reveal-armed::before,
+.work-item.reveal-armed::after{
+  opacity:0;
+  transform:scale(.4);
+  transition:opacity .4s cubic-bezier(.22,.9,.3,1), transform .4s cubic-bezier(.22,.9,.3,1);
+}
+.work-item.reveal-armed.reveal-in::before,
+.work-item.reveal-armed.reveal-in::after{ opacity:1; transform:scale(1); }
 
 /* zkosený roh — stejný motiv jako řez v hero sekci */
 .work-shot{
@@ -910,6 +933,13 @@ a{ color:inherit; }
   gap:24px;
 }
 .outcome{ border-top:2px solid var(--orange); padding-top:16px; }
+/* jemný nájezd karty při scrollu — viz js/script.js */
+.outcome.reveal-armed{
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity .5s cubic-bezier(.22,.9,.3,1), transform .5s cubic-bezier(.22,.9,.3,1);
+}
+.outcome.reveal-armed.reveal-in{ opacity:1; transform:translateY(0); }
 .outcome h3{ font-family:var(--f-head); font-weight:600; font-size:19px; margin:0 0 7px; color:var(--text); }
 .outcome p{ margin:0; font-size:14.5px; color:var(--text-dim); }
 
@@ -937,6 +967,13 @@ a{ color:inherit; }
   border-top:1px solid var(--line-soft);
 }
 .person:first-child{ border-top:0; padding-top:0; }
+/* jemný nájezd karty osoby při scrollu — viz js/script.js */
+.person.reveal-armed{
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity .5s cubic-bezier(.22,.9,.3,1), transform .5s cubic-bezier(.22,.9,.3,1);
+}
+.person.reveal-armed.reveal-in{ opacity:1; transform:translateY(0); }
 .person-role{
   font-family:var(--f-head);
   font-weight:600;
