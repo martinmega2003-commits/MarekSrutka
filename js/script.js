@@ -42,35 +42,10 @@ document.getElementById('year').textContent = new Date().getFullYear();
   var listEl = document.getElementById('list');
   if (!listEl) return;
 
-  var KURZY = [
-    { typ: 'zaskoleni', kod: 'ZP 81-2 1.1', metoda: '81', nazev: 'Řezání a drážkování kyslíkem', mat: 'Nelegované oceli', t: 20, p: 36 },
-    { typ: 'zaskoleni', kod: 'ZP 83-2 1.1', metoda: '83', nazev: 'Řezání plazmou', mat: 'Nelegované oceli', t: 20, p: 36 },
-    { typ: 'zaskoleni', kod: 'ZP 311-1 1.1', metoda: '311', nazev: 'Stehování plamenem', mat: 'Nelegované oceli', t: 20, p: 36 },
-    { typ: 'zaskoleni', kod: 'ZP 912-9 1.1', metoda: '912', nazev: 'Plamenové tvrdé pájení', mat: 'Měď a slitiny', t: 20, p: 36 },
-
-    { typ: 'zakladni', kod: 'ZK 111 1.1', metoda: '111', nazev: 'Ruční obloukové svařování obalenou elektrodou', mat: 'Nelegované a nízkolegované oceli', t: 40, p: 120 },
-    { typ: 'zakladni', kod: 'ZK 111 8', metoda: '111', nazev: 'Ruční obloukové svařování obalenou elektrodou', mat: 'Vysokolegované austenitické oceli', t: 40, p: 120 },
-    { typ: 'zakladni', kod: 'ZK 135 1.1', metoda: '135', nazev: 'Svařování tavící se elektrodou v aktivním plynu', mat: 'Nelegované oceli bez předehřevu', t: 40, p: 96 },
-    { typ: 'zakladni', kod: 'ZK 141 1.1', metoda: '141', nazev: 'Svařování netavící se elektrodou v inertním plynu', mat: 'Nelegované a nízkolegované oceli', t: 40, p: 96 },
-    { typ: 'zakladni', kod: 'ZK 141 8', metoda: '141', nazev: 'Svařování netavící se elektrodou v inertním plynu', mat: 'Vysokolegované austenitické oceli', t: 40, p: 96 },
-    { typ: 'zakladni', kod: 'ZK 131 21', metoda: '131', nazev: 'Svařování tavící se elektrodou v inertním plynu', mat: 'Hliník a jeho slitiny', t: 40, p: 96 },
-    { typ: 'zakladni', kod: 'ZK 311 1.1', metoda: '311', nazev: 'Svařování kyslíko-acetylenovým plamenem', mat: 'Nelegované oceli bez předehřevu', t: 40, p: 120 },
-    { typ: 'zakladni', kod: 'ZK 912 31', metoda: '912', nazev: 'Měkké a tvrdé pájení plamenem', mat: 'Měď a její slitiny', t: 40, p: 64 },
-
-    { typ: 'uredni', kod: '111', metoda: '111', nazev: 'Ruční obloukové svařování obalenou elektrodou', mat: 'Materiál 1.1, 1.2, 1.3, 6 — ČSN EN ISO 9606-1', t: 32, p: 128 },
-    { typ: 'uredni', kod: '111', metoda: '111', nazev: 'Ruční obloukové svařování obalenou elektrodou', mat: 'Materiál 8 — ČSN EN ISO 9606-1', t: 32, p: 128 },
-    { typ: 'uredni', kod: '311', metoda: '311', nazev: 'Svařování kyslíko-acetylenovým plamenem', mat: 'Materiál 1.1, 1.2, 6 — ČSN EN ISO 9606-1', t: 32, p: 128 },
-    { typ: 'uredni', kod: '135', metoda: '135', nazev: 'Svařování tavící se elektrodou v aktivním plynu', mat: 'Materiál 1.1, 1.2, 1.3, 6 — ČSN EN ISO 9606-1', t: 32, p: 128 },
-    { typ: 'uredni', kod: '135', metoda: '135', nazev: 'Svařování tavící se elektrodou v aktivním plynu', mat: 'Materiál 8, 21, 22, 23 — 9606-1 a 9606-2', t: 32, p: 128 },
-    { typ: 'uredni', kod: '131', metoda: '131', nazev: 'Svařování tavící se elektrodou v inertním plynu', mat: 'Materiál 8, 21, 22, 23 — 9606-1 a 9606-2', t: 32, p: 128 },
-    { typ: 'uredni', kod: '141', metoda: '141', nazev: 'Svařování netavící se elektrodou v inertním plynu', mat: 'Materiál 1.1, 1.2, 1.3 — ČSN EN ISO 9606-1', t: 32, p: 128 },
-    { typ: 'uredni', kod: '141', metoda: '141', nazev: 'Svařování netavící se elektrodou v inertním plynu', mat: 'Materiál 8, 21, 22, 31 — 9606-1 a 9606-2', t: 32, p: 128 },
-    { typ: 'uredni', kod: '912', metoda: '912', nazev: 'Pájení mědi a jejích slitin', mat: 'Materiál 31 — ČSN 050710, ČSN EN ISO 13585', t: 32, p: 48 },
-
-    { typ: 'periodicka', kod: '111 · 311 · 135 · 141', metoda: '111,311,135,141', nazev: 'Periodická úřední zkouška, nelegované oceli', mat: 'Materiál 1.1, 1.2, 1.3, 6', t: 8, p: 16 },
-    { typ: 'periodicka', kod: '111 · 131 · 135 · 141', metoda: '111,131,135,141', nazev: 'Periodická úřední zkouška, vysokolegované oceli a neželezné kovy', mat: 'Materiál 8, 21, 22, 31', t: 8, p: 16 },
-    { typ: 'periodicka', kod: '912', metoda: '912', nazev: 'Periodická zkouška, pájení mědi', mat: 'Materiál 31', t: 8, p: 16 }
-  ];
+  // Kurzy jsou napevno v HTML (kvůli indexaci vyhledávači) — JS jen
+  // přepíná jejich viditelnost podle zvoleného filtru, negeneruje je.
+  var courseEls = Array.prototype.slice.call(listEl.querySelectorAll('.course'));
+  var emptyEl = document.getElementById('course-empty');
 
   var TYPY = [
     { id: 'vse', label: 'Vše' },
@@ -79,10 +54,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
     { id: 'uredni', label: 'Úřední zkouška' },
     { id: 'periodicka', label: 'Periodická zkouška' }
   ];
-  var NAZVY_TYPU = {
-    zaskoleni: 'Zaškolení', zakladni: 'Základní kurz',
-    uredni: 'Úřední zkouška', periodicka: 'Periodická zkouška'
-  };
   var METODY = ['vse', '111', '131', '135', '141', '311', '912', '81', '83'];
   var METODY_POPIS = {
     111: 'ruční obloukem (elektroda)',
@@ -134,40 +105,17 @@ document.getElementById('year').textContent = new Date().getFullYear();
   function vykresli() {
     vykresliFiltry();
 
-    var vysledky = KURZY.filter(function (k) {
-      var okTyp = stavTyp === 'vse' || k.typ === stavTyp;
-      var okMet = stavMetoda === 'vse' || k.metoda.split(',').indexOf(stavMetoda) !== -1;
-      return okTyp && okMet;
+    var pocet = 0;
+    courseEls.forEach(function (el) {
+      var okTyp = stavTyp === 'vse' || el.getAttribute('data-typ') === stavTyp;
+      var okMet = stavMetoda === 'vse' || el.getAttribute('data-metoda').split(',').indexOf(stavMetoda) !== -1;
+      var zobrazit = okTyp && okMet;
+      el.hidden = !zobrazit;
+      if (zobrazit) pocet++;
     });
 
-    document.getElementById('count').textContent = skloneni(vysledky.length);
-
-    listEl.innerHTML = '';
-
-    if (!vysledky.length) {
-      var d = document.createElement('p');
-      d.className = 'course-empty';
-      d.textContent = 'Této kombinaci nic neodpovídá. Zkuste jinou metodu, nebo zavolejte a domluvíme se.';
-      listEl.appendChild(d);
-      return;
-    }
-
-    vysledky.forEach(function (k) {
-      var el = document.createElement('article');
-      el.className = 'course';
-      el.innerHTML =
-        '<div class="c-code">' + k.kod + '</div>' +
-        '<div>' +
-          '<div class="c-name">' + k.nazev + '</div>' +
-          '<span class="c-mat">' + k.mat + '</span>' +
-        '</div>' +
-        '<div class="c-meta">' +
-          '<span class="c-h">teorie <b>' + k.t + ' h</b></span>' +
-          '<span class="c-h">praxe <b>' + k.p + ' h</b></span>' +
-          '<span class="badge">' + NAZVY_TYPU[k.typ] + '</span>' +
-        '</div>';
-      listEl.appendChild(el);
-    });
+    document.getElementById('count').textContent = skloneni(pocet);
+    if (emptyEl) emptyEl.hidden = pocet !== 0;
   }
 
   document.getElementById('reset').onclick = function () {
