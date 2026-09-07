@@ -84,11 +84,13 @@ function armScrollReveal(container, items, opts) {
   armScrollReveal(strip, Array.prototype.slice.call(strip.querySelectorAll('.ref-job')), { stagger: 90, threshold: 0.15 });
 })();
 
-/* čísla „01“/„02“ u specifikací v Kdo jsme: podtržítková kótovací linka se dokreslí */
+/* čísla „01“/„02“ u specifikací v Kdo jsme: podtržítková kótovací linka se dokreslí
+   (pozorujeme .about-grid, ne .about-specs — to má pod 620px display:contents kvůli
+   přeskládání pořadí foto/tabulka, takže nemá žádnou geometrii pro IntersectionObserver) */
 (function () {
-  var wrap = document.querySelector('.about-specs');
-  if (!wrap) return;
-  armScrollReveal(wrap, Array.prototype.slice.call(wrap.querySelectorAll('.spec-head .n')), { stagger: 120, threshold: 0.4 });
+  var grid = document.querySelector('.about-grid');
+  if (!grid) return;
+  armScrollReveal(grid, Array.prototype.slice.call(grid.querySelectorAll('.spec-head .n')), { stagger: 120, threshold: 0.4 });
 })();
 
 /* časová osa: tečkovaná spojnice nad každou položkou se "odvine" shora dolů (jen desktop layout ≥900px) */
