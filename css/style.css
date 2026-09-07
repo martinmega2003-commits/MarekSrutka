@@ -728,6 +728,9 @@ a{ color:inherit; }
   transition:opacity .2s ease, transform .2s ease;
 }
 .ref-logo:hover{ opacity:1; transform:translateY(-2px); }
+/* jemný nájezd log při scrollu — viz js/script.js; bez JS/s reduced-motion zůstávají rovnou plně viditelná */
+.ref-logo.reveal-armed{ opacity:0; transform:translateY(10px); }
+.ref-logo.reveal-armed.reveal-in{ opacity:.96; transform:translateY(0); }
 /* stejné rohové značky jako u fotek v "Kdo jsme" — sjednocuje to s vizuálním jazykem webu */
 .ref-logo::before,
 .ref-logo::after{

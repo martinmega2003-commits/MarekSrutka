@@ -35,6 +35,34 @@ document.getElementById('year').textContent = new Date().getFullYear();
   }, { passive: false });
 })();
 
+/* loga partnerů: při doscrollování k nim se tiše postupně objeví (bez JS / s reduced-motion zůstávají rovnou vidět) */
+(function () {
+  var row = document.querySelector('.ref-logo-row');
+  if (!row) return;
+  var logos = Array.prototype.slice.call(row.querySelectorAll('.ref-logo'));
+  if (!logos.length) return;
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  logos.forEach(function (el, i) {
+    el.classList.add('reveal-armed');
+    el.style.transition = 'opacity .5s cubic-bezier(.22,.9,.3,1) ' + (i * 70) + 'ms, transform .5s cubic-bezier(.22,.9,.3,1) ' + (i * 70) + 'ms';
+  });
+
+  var io = new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      logos.forEach(function (el) { el.classList.add('reveal-in'); });
+      obs.disconnect();
+      window.setTimeout(function () {
+        logos.forEach(function (el) { el.style.transition = ''; });
+      }, 900);
+    });
+  }, { threshold: 0.25 });
+
+  io.observe(row);
+})();
+
 /* ============================================================
    SVÁŘEČSKÁ ŠKOLA — filtr kurzů (jen na svarecska-skola.html)
    ============================================================ */
