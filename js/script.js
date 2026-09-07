@@ -24,45 +24,6 @@ window.addEventListener('resize', function () {
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
-/* ============================================================
-   ODHALENÍ NADPISŮ PŘI SCROLLU — text se "navaří" zleva doprava
-   ============================================================ */
-(function () {
-  if (!('IntersectionObserver' in window)) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  var targets = document.querySelectorAll(
-    '.hero h1, .hero h2, .section-title, .work-head h2, .page-hero h1'
-  );
-  if (!targets.length) return;
-
-  // Pozor: clip-path na sledovaném prvku by IntersectionObserveru schoval
-  // jeho vlastní viditelnou plochu na nulu (dokud je "schovaný", observer
-  // by ho nikdy nenahlásil jako viditelný — uzavřený kruh). Proto se
-  // clip-path/animace dává na VNITŘNÍ span s textem, zatímco sleduje se
-  // vnější (nikdy neořezaný) nadpis.
-  targets.forEach(function (el) {
-    var inner = document.createElement('span');
-    inner.className = 'weld-armed';
-    while (el.firstChild) inner.appendChild(el.firstChild);
-    el.appendChild(inner);
-    inner.addEventListener('transitionend', function (e) {
-      if (e.propertyName === 'clip-path') inner.classList.add('weld-done');
-    });
-    el._weldInner = inner;
-  });
-
-  var io = new IntersectionObserver(function (entries, obs) {
-    entries.forEach(function (entry) {
-      if (!entry.isIntersecting) return;
-      entry.target._weldInner.classList.add('weld-visible');
-      obs.unobserve(entry.target);
-    });
-  }, { threshold: 0.2 });
-
-  targets.forEach(function (el) { io.observe(el); });
-})();
-
 /* pás referencí: na PC bez trackpadu jinak nejde rozjet — svislý scroll kolečkem myši překlopíme na vodorovný */
 (function () {
   var strip = document.querySelector('.ref-strip');
