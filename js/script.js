@@ -28,10 +28,33 @@ document.getElementById('year').textContent = new Date().getFullYear();
 (function () {
   var strip = document.querySelector('.ref-strip');
   if (!strip) return;
+
+  // vlastní sledovaný cíl scrollu — čtení strip.scrollLeft za běhu plynulé
+  // (smooth) animace vrací mezihodnotu, takže rychlé opakované += by se
+  // "honilo" za animací a ztrácelo kus vzdálenosti
+  var cil = null;
+  var resetCile = null;
+
   strip.addEventListener('wheel', function (e) {
     if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return; // uživatel už scrolluje vodorovně (trackpad) — nezasahovat
+
+    var max = strip.scrollWidth - strip.clientWidth;
+    if (cil === null) cil = strip.scrollLeft;
+
+    // na začátku/konci pásu nechat scroll propadnout dál do stránky,
+    // jinak by se stránka pod kurzorem zaseknutá na kraji pásu vůbec nehnula
+    var naZacatku = cil <= 0;
+    var naKonci = cil >= max;
+    if ((e.deltaY < 0 && naZacatku) || (e.deltaY > 0 && naKonci)) { cil = null; return; }
+
     e.preventDefault();
-    strip.scrollLeft += e.deltaY;
+    cil = Math.max(0, Math.min(max, cil + e.deltaY));
+    strip.scrollTo({ left: cil, behavior: 'smooth' });
+
+    // po chvíli klidu (žádný další tik) zapomenout sledovaný cíl, ať se
+    // příští gesto synchronizuje znovu podle skutečné (dojeté) pozice
+    clearTimeout(resetCile);
+    resetCile = setTimeout(function () { cil = null; }, 400);
   }, { passive: false });
 })();
 

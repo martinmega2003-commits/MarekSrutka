@@ -661,18 +661,20 @@ a{ color:inherit; }
   gap:20px;
   overflow-x:auto;
   overflow-y:hidden;
-  scroll-snap-type:x mandatory;
+  /* žádný scroll-snap: mandatory i "proximity" (tahle verze Chromia proximity
+     stejně tiše ignoruje) po malém pootočení kolečkem skáklo zpátky na
+     startovní kartu — viz wheel handler v script.js */
+  scroll-behavior:smooth;       /* plynulá animace mezi jednotlivými tiky kolečka, ne trhavý teleport */
   -webkit-overflow-scrolling:touch;
   padding:0 var(--gutter) 22px max(var(--gutter), calc((100vw - var(--maxw)) / 2 + var(--gutter)));
-  margin-bottom:clamp(40px, 7vw, 60px);
+  margin-bottom:clamp(18px, 3vw, 28px);
 }
-.ref-strip::-webkit-scrollbar{ height:3px; }
+.ref-strip::-webkit-scrollbar{ height:6px; }
 .ref-strip::-webkit-scrollbar-track{ background:var(--line-soft); }
 .ref-strip::-webkit-scrollbar-thumb{ background:var(--orange); }
 
 .ref-job{
   flex:0 0 clamp(240px, 70vw, 380px);
-  scroll-snap-align:start;
 }
 /* jemné "doostření" karty zakázky při scrollu do sekce — viz js/script.js */
 .ref-job.reveal-armed{
@@ -726,7 +728,7 @@ a{ color:inherit; }
 
 /* loga partnerů */
 .ref-logos{
-  margin-top:clamp(30px, 6vw, 46px);
+  margin-top:clamp(14px, 2vw, 20px);
   padding-top:26px;
   border-top:1px solid var(--line-soft);
 }
