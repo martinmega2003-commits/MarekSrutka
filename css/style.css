@@ -666,10 +666,10 @@ a{ color:inherit; }
      startovní kartu — viz wheel handler v script.js */
   scroll-behavior:smooth;       /* plynulá animace mezi jednotlivými tiky kolečka, ne trhavý teleport */
   -webkit-overflow-scrolling:touch;
-  padding:0 var(--gutter) 22px max(var(--gutter), calc((100vw - var(--maxw)) / 2 + var(--gutter)));
+  padding:0 var(--gutter) 22px var(--gutter);  /* pevný gutter, ne dopočítaný podle střed-zarovnání .wrap — na širokých monitorech to dělalo obří mezeru vlevo */
   margin-bottom:clamp(18px, 3vw, 28px);
 }
-.ref-strip::-webkit-scrollbar{ height:6px; }
+.ref-strip::-webkit-scrollbar{ height:3px; }
 .ref-strip::-webkit-scrollbar-track{ background:var(--line-soft); }
 .ref-strip::-webkit-scrollbar-thumb{ background:var(--orange); }
 
