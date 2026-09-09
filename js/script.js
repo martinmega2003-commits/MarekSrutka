@@ -620,3 +620,23 @@ document.querySelectorAll('.btn-kota').forEach(function (btn) {
     if (visible) Kota.syncViewBox(svg, btn);
   });
 });
+
+/* hero video: prohlížeč (hlavně mobilní) ho po přepnutí záložky nebo výpadku
+   sítě umí sám pozastavit a pak ukáže vlastní tlačítko přehrání — držíme ho
+   proto vždy puštěné */
+(function () {
+  var video = document.querySelector('.hero-video');
+  if (!video) return;
+
+  function resume() {
+    if (video.paused) {
+      video.play().catch(function () {});
+    }
+  }
+
+  video.addEventListener('pause', resume);
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) resume();
+  });
+  resume();
+})();
