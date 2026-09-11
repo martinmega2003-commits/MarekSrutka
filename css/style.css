@@ -567,6 +567,7 @@ a{ color:inherit; }
   margin-bottom:20px;
 }
 .work-shot img{ width:100%; height:100%; object-fit:cover; }
+.work-shot img.contain{ object-fit:contain; }  /* pro fotky na výšku, kde by cover useklo horní/dolní část */
 .shot-empty{
   position:absolute; inset:0;
   display:grid; place-items:center;
@@ -691,6 +692,7 @@ a{ color:inherit; }
   overflow:hidden;
 }
 .ref-frame img{ width:100%; height:100%; object-fit:cover; filter:saturate(.7) contrast(1.05); }
+.ref-frame img.contain{ object-fit:contain; }  /* fotky na výšku beze ztráty ořezem */
 .ref-frame-empty{
   position:absolute; inset:0;
   display:grid; place-items:center;
