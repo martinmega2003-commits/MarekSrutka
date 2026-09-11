@@ -711,14 +711,6 @@ a{ color:inherit; }
   border-top:1px solid var(--line-soft);
   margin-top:14px;
 }
-.ref-cap-year{
-  font-family:var(--f-head);
-  font-weight:600;
-  font-size:18px;
-  color:var(--orange);
-  flex-shrink:0;
-  padding-top:1px;
-}
 .ref-cap h3{
   font-family:var(--f-head);
   font-weight:600;
@@ -901,8 +893,6 @@ a{ color:inherit; }
 .c-name{ font-size:16px; color:var(--text); }
 .c-mat{ display:block; font-size:13.5px; color:var(--text-dim); margin-top:2px; }
 .c-meta{ display:flex; gap:18px; flex-wrap:wrap; align-items:center; }
-.c-h{ font-size:14px; color:var(--text-dim); }
-.c-h b{ font-family:var(--f-head); font-size:16px; color:var(--text); font-weight:600; }
 .badge{ font-size:12.5px; color:var(--text-dim); border:1px solid var(--line-soft); padding:4px 10px; }
 
 .course-empty{ padding:32px 0; color:var(--text-dim); }
