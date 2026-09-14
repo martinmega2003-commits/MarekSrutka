@@ -141,8 +141,22 @@ function armScrollReveal(container, items, opts) {
 (function () {
   var els = Array.prototype.slice.call(document.querySelectorAll('.count-up'));
   if (!els.length) return;
-  if (!('IntersectionObserver' in window)) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // data-since (rok) se každý rok automaticky přepočítá na aktuální data-target,
+  // ať číslo v HTML nezastará — data-target zůstává jako fallback bez data-since
+  var thisYear = new Date().getFullYear();
+  els.forEach(function (el) {
+    var since = parseInt(el.getAttribute('data-since'), 10);
+    if (!isNaN(since)) el.setAttribute('data-target', String(thisYear - since));
+  });
+
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    els.forEach(function (el) {
+      var target = el.getAttribute('data-target');
+      if (target !== null) el.textContent = target;
+    });
+    return;
+  }
 
   els.forEach(function (el) {
     var target = parseInt(el.getAttribute('data-target'), 10);
