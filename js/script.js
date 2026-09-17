@@ -658,6 +658,25 @@ document.querySelectorAll('.btn-kota').forEach(function (btn) {
   });
 });
 
+/* mapa na kontaktu: iframe Google Maps se načte až po kliknutí (GDPR/ePrivacy —
+   žádný přenos dat Googlu při pouhé návštěvě stránky) */
+(function () {
+  var map = document.getElementById('map');
+  var btn = document.getElementById('mapLoadBtn');
+  if (!map || !btn) return;
+
+  btn.addEventListener('click', function () {
+    var iframe = document.createElement('iframe');
+    iframe.src = map.getAttribute('data-map-src');
+    iframe.title = map.getAttribute('data-map-title');
+    iframe.loading = 'lazy';
+    iframe.referrerPolicy = 'no-referrer-when-downgrade';
+    iframe.allowFullscreen = true;
+    map.innerHTML = '';
+    map.appendChild(iframe);
+  });
+})();
+
 /* hero video: prohlížeč (hlavně mobilní) ho po přepnutí záložky nebo výpadku
    sítě umí sám pozastavit a pak ukáže vlastní tlačítko přehrání — držíme ho
    proto vždy puštěné */

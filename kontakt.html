@@ -25,11 +25,7 @@
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "bf1dea98ed0c44e6bbb9d6b60c8ca3b7"}'></script>
 <!-- End Cloudflare Web Analytics -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="css/style.css?v=38">
+<link rel="stylesheet" href="css/style.css?v=39">
 </head>
 
 <body>
@@ -106,6 +102,7 @@
           <dl>
             <dt>IČO</dt><dd>03760294</dd>
             <dt>DIČ</dt><dd>CZ03760294</dd>
+            <dt>Zápis</dt><dd>KS v Brně, oddíl C, vložka 86632</dd>
           </dl>
         </div>
 
@@ -120,13 +117,13 @@
       </div>
 
       <div class="map-col">
-        <div class="map">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.6524384231884!2d17.090495115853198!3d48.845767909549245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47132eeb76694ef3%3A0x8fef5f9ed51103da!2sU%20Kyjovky%203939%2F18%2C%20695%2001%20Hodon%C3%ADn!5e0!3m2!1scs!2scz!4v1613564654563!5m2!1scs!2scz"
-            title="Mapa — U Kyjovky 3939/18, Hodonín"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allowfullscreen></iframe>
+        <div class="map" id="map"
+          data-map-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.6524384231884!2d17.090495115853198!3d48.845767909549245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47132eeb76694ef3%3A0x8fef5f9ed51103da!2sU%20Kyjovky%203939%2F18%2C%20695%2001%20Hodon%C3%ADn!5e0!3m2!1scs!2scz!4v1613564654563!5m2!1scs!2scz"
+          data-map-title="Mapa — U Kyjovky 3939/18, Hodonín">
+          <div class="map-load">
+            <button type="button" id="mapLoadBtn">Zobrazit mapu</button>
+            <small>Načte se obsah z Google Maps — Google při tom zpracuje vaši IP adresu. Více v <a href="zasady-ochrany-osobnich-udaju.html">zásadách ochrany osobních údajů</a>.</small>
+          </div>
         </div>
         <p class="map-note">
           <span>U Kyjovky 3939/18, Hodonín</span>
@@ -159,15 +156,15 @@
 
       <div>
         <h4>Firma</h4>
-        <p>Marek Šrůtka s.r.o.<br>IČO: 03760294 · DIČ: CZ03760294</p>
+        <p>Marek Šrůtka s.r.o.<br>IČO: 03760294 · DIČ: CZ03760294<br>KS v Brně, oddíl C, vložka 86632</p>
       </div>
 
     </div>
-    <p class="copyright">© <span id="year">2026</span> Marek Šrůtka s.r.o. — zámečnická dílna a svářečská škola 11-250</p>
+    <p class="copyright">© <span id="year">2026</span> Marek Šrůtka s.r.o. — zámečnická dílna a svářečská škola 11-250 · <a href="zasady-ochrany-osobnich-udaju.html">Zásady ochrany osobních údajů</a></p>
   </div>
 </footer>
 
-<script src="js/script.js?v=38"></script>
+<script src="js/script.js?v=39"></script>
 
 </body>
 </html>
