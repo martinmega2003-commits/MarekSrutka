@@ -1089,7 +1089,7 @@ a{ color:inherit; }
 .map-load{
   position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
   gap:14px; text-align:center; padding:24px;
-  background-image:linear-gradient(180deg, rgba(10,9,8,.35) 0%, rgba(10,9,8,.8) 100%), url("../img/mapa-nahled.png");
+  background-image:linear-gradient(180deg, rgba(10,9,8,.35) 0%, rgba(10,9,8,.8) 100%), url("../img/mapa-nahled.webp");
   background-size:cover;
   background-position:center;
 }
