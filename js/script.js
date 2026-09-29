@@ -241,6 +241,26 @@ function armScrollReveal(container, items, opts) {
   update();
 })();
 
+/* šipka "scrolluj dolů" v heru: zmizí, jakmile uživatel začne scrollovat */
+(function () {
+  var hint = document.querySelector('.scroll-hint');
+  if (!hint) return;
+
+  var ticking = false;
+  function update() {
+    hint.classList.toggle('is-hidden', window.scrollY > 40);
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      window.requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+  update();
+})();
+
 /* ============================================================
    SVÁŘEČSKÁ ŠKOLA — filtr kurzů (jen na svarecska-skola.html)
    ============================================================ */

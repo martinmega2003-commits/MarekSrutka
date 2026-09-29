@@ -328,6 +328,25 @@ a{ color:inherit; }
   text-shadow:0 2px 12px rgba(0,0,0,.75), 0 1px 2px rgba(0,0,0,.85);
 }
 
+.scroll-hint{
+  position:fixed;
+  left:50%; bottom:18px;
+  z-index:20;
+  display:flex; align-items:center; justify-content:center;
+  width:40px; height:40px;
+  color:#fff;
+  opacity:.85;
+  transform:translateX(-50%);
+  animation:scroll-hint-bounce 2.2s ease-in-out infinite;
+  transition:opacity .3s ease;
+}
+.scroll-hint:hover{ opacity:1; color:var(--orange); }
+.scroll-hint.is-hidden{ opacity:0; pointer-events:none; }
+@keyframes scroll-hint-bounce{
+  0%,100%{ transform:translateX(-50%) translateY(0); }
+  50%{ transform:translateX(-50%) translateY(8px); }
+}
+
 .btn{
   display:inline-flex;
   align-items:center;
@@ -1069,7 +1088,10 @@ a{ color:inherit; }
 .map iframe{ width:100%; height:100%; border:0; display:block; }
 .map-load{
   position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:14px; text-align:center; padding:24px; background:var(--panel);
+  gap:14px; text-align:center; padding:24px;
+  background-image:linear-gradient(180deg, rgba(10,9,8,.35) 0%, rgba(10,9,8,.8) 100%), url("../img/mapa-nahled.png");
+  background-size:cover;
+  background-position:center;
 }
 .map-load button{
   font-family:var(--f-head); font-weight:600; font-size:14px; letter-spacing:.02em;
@@ -1077,8 +1099,11 @@ a{ color:inherit; }
   padding:11px 22px; cursor:pointer;
 }
 .map-load button:hover{ background:var(--orange-dark); }
-.map-load small{ max-width:32ch; font-size:12.5px; line-height:1.5; color:var(--text-dim); }
-.map-load small a{ color:var(--text-dim); text-decoration:underline; text-underline-offset:2px; }
+.map-load small{
+  max-width:32ch; font-size:12.5px; line-height:1.5; color:#dedad4;
+  background:rgba(10,9,8,.72); border-radius:3px; padding:8px 12px;
+}
+.map-load small a{ color:#dedad4; text-decoration:underline; text-underline-offset:2px; }
 .map-load small a:hover{ color:var(--orange); }
 
 /* ============================================================
@@ -1431,4 +1456,14 @@ a{ color:inherit; }
 @media (max-width:619px){
   .scroll-kota{ width:2px; }
   .scroll-kota-fill::after{ border-width:4px 3px 0 3px; }
+}
+
+/* ============================================================
+   Vypnutí klikání na telefonní čísla na desktopu
+   ============================================================ */
+@media (min-width: 900px) {
+  a[href^="tel:"] {
+    pointer-events: none;
+    cursor: default;
+  }
 }
